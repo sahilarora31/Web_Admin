@@ -1,0 +1,102 @@
+<div class="programDetail">
+    <div *ngIf="notLoading && !programInfo || programInfo && !programInfo.programId" class="no-program-card">
+        <div class="no-program-main">
+            <div class="no-program-box">
+                <label role="alert" class="nochlgheadg">Something went wrong. Please try again.</label>
+            </div>
+        </div>
+    </div>
+    <div id="loader-div" *ngIf="!notLoading"></div>
+    <nav *ngIf="programInfo && programInfo.programId" class="breadcrumb-sec" aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+            <li tabindex="0" class="breadcrumb-item active" id="bread-home">
+                <a [href]="homeUrl" tabindex="-1">
+                    HOME
+                </a>
+            </li>
+            <li class="breadcrumb-item" id="bread-page1" tabindex="0" (click)="goToProgram()">
+                <a tabindex="-1">
+                    PROGRAMS
+                </a>
+            </li>
+            <li class="breadcrumb-item" id="bread-page2" tabindex="0">
+                <a tabindex="-1">
+                    {{programInfo.programName}}
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <section *ngIf="programInfo && programInfo.programId" class="reading-program">
+        <div class="reading-book-detail">
+            <div class="book-detail-lft" id="prog-det-readprogram">
+                <h5 class="pro-sub-heading" aria-level="1">Reading Program</h5>
+                <h1 class="pro-heading" id="prog-det-heading" aria-level="2">{{programInfo.programName}}</h1>
+                <p class="pro-desc" id="prog-det-ptext">{{programInfo.description}}</p>
+            </div>
+            <div class="book-detail-rgt">
+                <div class="created-view">
+                    <div class="created-read">
+                        <h4 aria-level="3">CREATED {{getDate(programInfo.createdDate)}}</h4>
+                        <p id="pd-strt-date">{{creatorName}}</p>
+                    </div>
+                </div>
+                <div class="pro-date-sec">
+                    <div class="display-date">
+                        <div class="start-date">
+                            <h4 aria-level="4">START DATE</h4>
+                            <p id="pd-strt-date">{{getDate(programInfo.startDate)}}</p>
+                        </div>
+                        <div class="start-date">
+                            <h4 aria-level="4">END DATE</h4>
+                            <p id="pd-end-date">{{getDate(programInfo.readByDate)}}</p>
+                        </div>
+                        <div class="start-date">
+                            <h4 aria-level="4" aria-label="status">STATUS</h4>
+                            <p id="pd-status">{{rpStatus | titlecase}}</p>
+                        </div>
+                    </div>
+                    <div class="display-date">
+                        <div class="start-date">
+                            <h4 aria-level="4">VISIBILITY</h4>
+                            <p>{{programInfo.isPublic?'Public':'Private'}}</p>
+                        </div>
+                        <div class="start-date">
+                            <h4 aria-level="4">PROGRAM TYPE</h4>
+                            <p>{{getTypeInfo(programInfo)}}</p>
+                        </div>
+                        <div *ngIf="programInfo.reminderFrequency" class="start-date">
+                            <h4 aria-level="4">REMINDERS</h4>
+                            <p>{{ programInfo.reminderFrequency | titlecase }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pro-option-sec">
+
+            <div *ngIf="programInfo.status !== 'Complete'" class="pro-option">
+                <a #editProgram role="button" href="javascript:void(0)" (click)="openProgramModal(false)" id="pd-editprg">EDIT PROGRAM<img src="/Angular-App/assets/icons-core-note.svg" alt="edit icon"/></a>
+            </div>
+            <div class="pro-option">
+                <a #duplicateProgramOption role="button" href="javascript:void(0)" (click)="openProgramModal(true)" id="pd-duplcate">DUPLICATE PROGRAM<img src="/Angular-App/assets/icons-core-duplicate.svg" alt="duplicate icon"/></a>
+            </div>
+            <div *ngIf="programInfo.status === 'Active'" class="pro-option">
+                <a role="button" href="javascript:void(0)" (click)="openAlertDialog(RP_ALERTS.UNPUBLISH, programInfo.programName)" id="pd-ubplish">UNPUBLISH <img src="/Angular-App/assets/icons-core-invisible.svg" alt="unpublish icon"/></a>
+            </div>
+            <div *ngIf="programInfo.status === 'Unpublish'" class="pro-option">
+                <a role="button" (click)="programAction('Publish')" id="pd-ubplish">PUBLISH <img src="/Angular-App/assets/icons-core-visible.svg" alt="publish icon"/> </a>
+            </div>
+
+        </div>
+    </section>
+    <section *ngIf="programInfo && programInfo.books" class="reading-list">
+        <h2 aria-level="5" id="pd-readlist-head">Reading List ({{programInfo.books.length}})</h2>
+        <div class="reading-main-sec">
+            <axis360-title-card-carousel [usedIn]="'view'" [dragDrop]="false" [isBookInOrder]="getTypeInfo(programInfo) === 'Books in Order'" #addTitle [bookList]="programInfo.books">
+            </axis360-title-card-carousel>
+        </div>
+    </section>
+    <section *ngIf="programInfo && programInfo.participants && programInfo.participants.length > 0" class="reading-list">
+        <h2 aria-level="5" id="pd-readlist-head">Participants ({{programInfo.participants.length}})</h2>
+    </section>
+</div>

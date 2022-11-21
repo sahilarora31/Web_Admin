@@ -1,0 +1,76 @@
+@import "../../../../../../variables.scss";
+.delete-dialog {
+  .delete-dialog-heading {
+    position: relative;
+    .close-icon{
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: 30px;
+      height: 30px;
+      min-width: none;
+      color: #596940;
+    }
+    p {
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.6;
+        letter-spacing: normal;
+        color: #373737;
+        @include myriadPro;
+        margin: 0px;
+        padding-bottom: 24px;
+    }
+    h4{
+        font-size: 30px;
+        color: #596940;
+        @include myriadPro;
+        padding-bottom: 16px;
+        width: 80%;
+        margin: 0px;
+    }
+  }
+  .delete-dialog-btns {
+    margin-bottom: 0;
+    display: flex;
+    button {
+      width: 173px;
+      min-width: 173px;
+      border-radius: 8px;
+      height: 40px;
+      padding: 0px;
+      font-size: 16px;
+      @include semiBoldFont;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .delete-dialog-submit-btn {
+      background: #002d5d;
+      color: $white;
+      border: 2px solid #002d5d;
+    }
+    .delete-dialog-cancel-btn {
+      background-color: #6f6f6f;
+      color: $white;
+      border: 2px solid #6f6f6f;
+      
+      margin-bottom: 24px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .alert-dialog {
+    .alert-btns {
+      flex-direction: column-reverse;
+      button {
+        width: 100%;
+        &.submit-btn {
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+}

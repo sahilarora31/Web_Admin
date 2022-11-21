@@ -1,0 +1,332 @@
+@import "./../../../../variables.scss";
+.example-sidenav{
+  position: fixed;
+  top: 160px;
+  left: 0;
+  background-color: $matdrawer-back;
+  height: 100vh;
+  width: calc(100% - 480px);
+}
+
+.mb-display {
+  display: none;
+}
+
+.modal-main-div {
+  padding: 16px 16px 80px;
+  h4 {
+    font-size: 14px;
+    @include boldFont;
+    color: $secondaryBlackColor;
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-bottom: 0;
+  }
+  .dialog-close {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      @include buttonBg;
+    }
+  }
+  .pro-head-name {
+    h2 {
+      margin: 0 0 15px;
+      width: 100%;
+      color: $secondaryBlackColor;
+      font-size: 32px;
+      line-height: 48px;
+      @include regularFont;
+    }
+  }
+  .pro-create-name {
+    padding-bottom: 25px;
+  }
+  .pro-desc-sec {
+    border-bottom: 1px solid $border-light;
+    padding-bottom: 25px;
+  }
+  .pro-detail-sec {
+    h4 {
+      margin-top: 24px;
+      margin-bottom: 19px;
+    }
+  }
+  .rp-radio-button {
+    padding-bottom: 20px;
+
+    .info-icon {
+      @include buttonBg;
+      .mat-icon {
+        vertical-align: middle;
+        font-size: 20px;
+      }
+    }
+    [type="radio"]:checked,
+    [type="radio"]:not(:checked) {
+      position: absolute;
+      left: -9999px;
+    }
+    [type="radio"]:checked + label,
+    [type="radio"]:not(:checked) + label {
+      position: relative;
+      padding-left: 28px;
+      cursor: pointer;
+      line-height: 20px;
+      display: inline-block;
+    }
+    [type="radio"]:checked + label:before,
+    [type="radio"]:not(:checked) + label:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 17px;
+      height: 17px;
+      border: 1.5px solid $secondaryBlackColor;
+      border-radius: 100%;
+      background: $white;
+    }
+    [type="radio"]:checked + label:after,
+    [type="radio"]:not(:checked) + label:after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: $primaryGreenColor;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      border-radius: 100%;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+    }
+    @-moz-document url-prefix() {
+      [type="radio"]:checked + label:after,
+      [type="radio"]:not(:checked) + label:after {
+        left: 4.5px !important;
+      }
+    }
+    [type="radio"]:not(:checked) + label:after {
+      opacity: 0;
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    }
+    [type="radio"]:checked + label:after {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+    label {
+      @include regularFont;
+      font-size: 18px;
+      color: $secondaryBlackColor;
+      padding-left: 5px;
+    }
+  }
+  .pro-type-sec,
+  .pro-reminder-sec {
+    font-size: 16px;
+    .mat-select-value {
+      color: $primaryBlackColor;
+    }
+  }
+  .arrow-down {
+    color: $primaryGreenColor;
+    margin-right: 5px;
+  }
+  .pro-date-sec {
+    .start-end-date {
+      display: flex;
+      .date-sec {
+        width: 48.5%;
+        margin-right: 15px;
+      }
+    }
+  }
+  .pro-reminder-sec {
+    @include regularFont;
+    font-size: 16px;
+  }
+  .delete-program {
+    margin: 24px 0 32px 0;
+    button {
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      padding-left: 0;
+      mat-label {
+        font-size: 14px;
+        @include boldFont;
+        color: $primaryGreenColor;
+        letter-spacing: 0.5px;
+        padding-right: 10px;
+      }
+      mat-icon {
+        color: $primaryGreenColor;
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+  .pro-addtitle-sec {
+    padding-top: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $border-light;
+    border-top: 1px solid $border-light;
+    &.add-space-btm {
+      margin-bottom: 50px;
+    }
+    .add-titlesmain {
+      display: flex;
+      min-height: 145px;
+      .add-titles {
+        border: 2px dashed $primaryGreenColor;
+        border-radius: 8px;
+        padding: 0;
+        height: 105px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 69px;
+        margin-right: 20px;
+        margin-top: 16px;
+        box-shadow: 0 4px 16px 0 rgba(36, 46, 66, 0.1);
+        flex: 1;
+        button {
+          background-color: $primaryGreenColor;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          .mat-icon {
+            color: $white;
+          }
+        }
+      }
+      .addedBooks {
+        width: 88%;
+        flex: 2;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .modal-main-div {
+    .pro-head-name {
+      h2 {
+        font-size: 28px;
+        color: $primaryBlackColor;
+      }
+    }
+  }
+}
+@media (min-width: 701px) and (max-width: 1023px) {
+  .example-sidenav {
+    width: calc(100% - 372px);
+  }  
+  .modal-main-div {
+    padding: 16px 16px 100px;
+    .pro-head-name {
+      h2 {
+        font-size: 28px;
+        color: $primaryBlackColor;
+      }
+    }
+    .pro-date-sec {
+      .start-end-date {
+        flex-direction: column;
+        .date-sec {
+          width: 100%;
+          margin-right: 0;
+        }
+      }
+    }
+    .pro-addtitle-sec {
+      .add-titlesmain {
+        .add-titles {
+          margin-right: 14px;
+        }
+      }
+    }
+    .delete-program {
+      margin: 24px 0 56px 0;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .modal-main-div {
+    .pro-head-name {
+      h2 {
+        font-size: 26px;
+        color: $primaryBlackColor;
+      }
+    }
+    .pro-date-sec {
+      .start-end-date {
+        flex-direction: column;
+        .date-sec {
+          width: 100%;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .example-sidenav {
+    width: 100%;
+    top: 0;
+  }
+  .mb-display {
+    background: $white;
+    display: block;
+    .mb-back-sec {
+      padding: 16px;
+      box-shadow: 0 4px 16px 0 rgba(36, 46, 66, 0.1);
+      button {
+        background-color: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        .mdl-close {
+          color: $primaryGreenColor;
+        }
+        .mb-back {
+          color: $primaryGreenColor;
+          font-size: 14px;
+          @include boldFont;
+          letter-spacing: 0.5px;
+        }
+        .mb-search-title {
+          font-size: 16px;
+          color: $primaryBlackColor;
+          @include boldFont;
+          max-width: 190px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          margin: 0 auto 0 25px;
+        }
+      }
+    }
+    .mbaddedBooks {
+      background-color: $matdrawer-back;
+      height: auto;
+      padding: 16px;
+      img {
+        display: flex;
+        height: 109px;
+        width: 73px;
+        border-radius: 15px;
+      }
+    }
+  }
+}

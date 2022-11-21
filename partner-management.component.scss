@@ -1,0 +1,63 @@
+@import "./../../../variables.scss";
+a {
+    display: inline-block;
+    margin-right: 10px;
+}
+.bread-crumb-block{
+    display: flex;
+    padding-bottom: 20px;
+    .icon_breadcrumb_settings{
+        margin-right: 15px;
+        margin-left: 5px;
+    }
+    .bread-crumb-text{
+        font-size: 28px;
+        font-weight: 500;
+        font-stretch: condensed;
+        @include regularFont;
+    }
+}
+.cta-setcion{
+    display: flex;
+    padding-bottom: 22px;
+    .add-btn{
+        display: flex;
+        justify-content: center;
+        min-width: 220px;
+        background-color: #012d5e !important;
+        background: #012d5e;
+        color: #fff;
+        padding: 7px 15px;
+        padding: 10px 15px;
+        text-transform: uppercase;
+        font-size: 18px;
+        @include myriadPro;
+        font-weight: normal;
+        border-color: #012d5e;
+        border-radius: 10px;
+        .ui-button-text{
+            display: flex;
+            font-size: 18px;
+            display: flex !important;
+            color: $white;
+            align-items: center;
+        }
+        .icon{
+            display: flex;
+            padding: 0 7px;
+        }
+    }
+}
+
+.grid-wrapper{
+    height: 520px;
+    &.ag-theme-alpine {
+        .ag-icon-menu::before {
+            content: "&#9660;";
+        }
+        
+    }
+    .ag-row{
+        border-width: 0px !important;
+    }
+}

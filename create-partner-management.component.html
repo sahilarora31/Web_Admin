@@ -1,0 +1,112 @@
+<div>
+    <div class="bread-crumb-block">
+        <ul class="bread-crumb-widget" style="display:inline-block">
+            <li class="icon_action_back bread-crumb-back"><a href="/ng/partnermanagement"></a></li>
+            <li class="bread-crumb-icon icon_breadcrumb_settings"></li>
+            <li class="bread-crumb-text">Library</li>
+            <li class="bread-crumb-separator">&nbsp;-&nbsp;</li>
+            <li class="bread-crumb-text">Partner Management</li>
+            <li class="bread-crumb-separator">&nbsp;-&nbsp;</li>
+            <li class="bread-crumb-text">Create Partner</li>
+        </ul>
+    </div>
+    <div>
+        <form [formGroup]="createPartnerForm" class="create-modal-form">
+            <mat-accordion>
+                <mat-expansion-panel #panelPartner (opened)="panelPartnerState = true"
+                    (closed)="panelPartnerState = false" [expanded]="panelPartnerState">
+                    <mat-expansion-panel-header (click)="displayHeaderName()">
+                        <mat-panel-title>
+                            <div class="row">
+                                <div class="innerDiv col_one">
+                                    <p class="field_label">
+                                        <span *ngIf="!panelPartnerState">{{headerName}}</span>
+                                        <span *ngIf="panelPartnerState">Name <sup>*</sup></span>
+                                    </p>
+                                </div>
+                                <div class="innerDiv col_tow" *ngIf="panelPartnerState === true">
+                                    <p class="field_label pad-left10">ePopup Site <sup>*</sup></p>
+                                </div>
+                            </div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row ">
+                        <div class="innerDiv col_one">
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Partner Name" formControlName="partnerName">
+                                <mat-error *ngIf="createPartnerForm.hasError('required', 'partnerName')">Name
+                                    is required.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="innerDiv col_tow">
+                            <mat-form-field class="select-box">
+                                <mat-select formControlName="ePopupLibraryID" disableOptionCentering="true"
+                                    placeholder="Select ePopup Site">
+                                    <mat-option *ngFor="let library of libraryList; let i=index"
+                                        [value]="library.LibraryID">
+                                        {{library.LibraryName+' ('+ library.LibraryPrefix+')'}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="createPartnerForm.hasError('required', 'ePopupLibraryID')">ePopup Site
+                                    is required.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="innerDiv col_one">
+                            <p class="field_label">Contact Name <sup>*</sup></p>
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Contact Name" formControlName="contactName">
+                                <mat-error *ngIf="createPartnerForm.hasError('required', 'contactName')">Contact name is
+                                    required.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="innerDiv col_one">
+                            <p class="field_label">Email <sup>*</sup></p>
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Email" type="email" formControlName="contactEmail"
+                                    pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                                <mat-error *ngIf="createPartnerForm.hasError('required', 'contactEmail')">Contact email
+                                    is required.
+                                </mat-error>
+                                <mat-error *ngIf="!createPartnerForm.hasError('required', 'contactEmail')
+                                 && !createPartnerForm.hasError('email', 'contactEmail')">The email address you
+                                    entered in not a valid format. Please re-enter your email address.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="innerDiv col_one">
+                            <p class="field_label">Phone</p>
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Phone Number" formControlName="contactPhone" maxlength="14"
+                                    (keypress)="keyPressEvent($event)">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row cta-warapper">
+                        <div class="cta-setcion align-right">
+                            <button class="add-btn non-active" (click)="cancelPartner()">Cancel</button>
+                            <button id="btnSavePartner" class="add-btn" (click)="addPartner()">Save</button>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </form>
+    </div>
+    <div>
+        <div class="cta-setcion">
+            <button class="add-btn non-active create-location" (click)="addNewLocation(true)" disabled> <span
+                    class="icon icon_create_partner"></span> CREATE LOCATION QR CODE </button>
+        </div>
+    </div>
+    <div>
+        <ag-grid-angular #myGrid style="width: 100%; height: 520px;" class="ag-theme-alpine grid-wrapper create-partner"
+            [rowData]="rowData" [columnDefs]="columns" [paginationPageSize]="10" [pagination]="false"
+            rowSelection="multiple" [overlayNoRowsTemplate]="noRowsTemplate" (gridReady)="onGridReady($event)"
+            [context]="context">
+        </ag-grid-angular>
+    </div>
+</div>

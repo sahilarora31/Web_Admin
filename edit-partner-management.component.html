@@ -1,0 +1,112 @@
+<div>
+    <div class="bread-crumb-block">
+        <ul class="bread-crumb-widget" style="display:inline-block">
+            <li class="icon_action_back bread-crumb-back"><a href="/ng/partnermanagement"></a></li>
+            <li class="bread-crumb-icon icon_breadcrumb_settings"></li>
+            <li class="bread-crumb-text">Library</li>
+            <li class="bread-crumb-separator">-&nbsp;</li>
+            <li class="bread-crumb-text">Partner Management</li>
+            <li class="bread-crumb-separator">-&nbsp;</li>
+            <li class="bread-crumb-text">Edit Partner</li>
+        </ul>
+    </div>
+    <div>
+        <form [formGroup]="editPartnerForm">
+            <mat-accordion>
+                <mat-expansion-panel #panelPartner (opened)="panelPartnerState = true"
+                    (closed)="panelPartnerState = false" [expanded]="panelPartnerState">
+                    <mat-expansion-panel-header (click)="displayHeaderName()">
+                        <mat-panel-title>
+                            <div class="row ">
+                                <div class="innerDiv col_one">
+                                    <p class="field_label">
+                                        <span *ngIf="!panelPartnerState">{{headerName}}</span>
+                                        <span *ngIf="panelPartnerState">Name <sup>*</sup></span>
+                                    </p>
+                                </div>
+                                <div class="innerDiv col_tow" *ngIf="panelPartnerState">
+                                    <p class="field_label pad-left10">ePopup Site <sup>*</sup></p>
+                                </div>
+                            </div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="innerDiv col_one">
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Partner Name" formControlName="partnerName">
+                            </mat-form-field>
+                        </div>
+                        <div class="innerDiv col_tow">
+                            <mat-form-field class="select-box">
+                                <mat-select formControlName="ePopupLibraryID" disableOptionCentering="true"
+                                    placeholder="Select ePopup Site">
+                                    <mat-option *ngFor="let ePopupLibraryID of ePopupSiteList; let i=index"
+                                        [value]="ePopupLibraryID">
+                                        {{ePopupLibraryID.LibraryName+' ('+ ePopupLibraryID.LibraryPrefix+')'}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="editPartnerForm.hasError('required', 'ePopupLibraryID')">ePopup Site
+                                    is required.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="innerDiv col_one">
+                            <p class="field_label">Contact Name <sup>*</sup></p>
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Contact Name" formControlName="contactName">
+                                <mat-error *ngIf="editPartnerForm.hasError('required', 'contactName')">Contact name is
+                                    required.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="innerDiv col_one">
+                            <p class="field_label">Email <sup>*</sup></p>
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Email" type="email" formControlName="contactEmail"
+                                    pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                                <mat-error *ngIf="editPartnerForm.hasError('required', 'contactEmail')">Contact email
+                                    is required.
+                                </mat-error>
+                                <mat-error *ngIf="!editPartnerForm.hasError('required', 'contactEmail') &&
+                                 !editPartnerForm.hasError('email', 'contactEmail')">The email address you
+                                    entered in not a valid format. Please re-enter your email address.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="innerDiv col_one">
+                            <p class="field_label">Phone</p>
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Phone Number" formControlName="contactPhone" maxlength="14"
+                                    (keypress)="keyPressEvent($event)">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="cta-setcion align-right">
+                            <button class="add-btn non-active" (click)="cancelPartner()">Cancel</button>
+                            <button class="add-btn" (click)="updatePartner()">Save</button>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </form>
+    </div>
+    <br>
+    <div>
+        <div class="cta-setcion">
+            <button class="add-btn non-active create-location" (click)="addNewLocation(true)"><span
+                    class="icon_create_partner icon"></span>
+                CREATE LOCATION QR CODE</button>
+        </div>
+    </div>
+    <br>
+    <div>
+        <ag-grid-angular #myGrid style="width: 100%; height: 520px;" class="ag-theme-alpine grid-wrapper edit-partner"
+            [rowData]="rowData" [columnDefs]="columns" [paginationPageSize]="10" [pagination]="false"
+            rowSelection="multiple" [context]="context" [overlayNoRowsTemplate]="noRowsTemplate"
+            (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+    </div>
+</div>

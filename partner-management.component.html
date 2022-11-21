@@ -1,0 +1,30 @@
+<div>
+  <div class="bread-crumb-block">
+    <ul class="bread-crumb-widget" style="display:inline-block">
+        <li class="icon_action_back bread-crumb-back"><a href="{{'/Admin/Library?libraryId=' + configService?.currentLibrary?.LibraryId}}"></a></li>
+        <li class="bread-crumb-icon icon_breadcrumb_settings"></li>
+        <li class="bread-crumb-text">Library</li>
+        <li class="bread-crumb-separator">&nbsp;-&nbsp;</li>
+        <li class="bread-crumb-text">Partner Management</li>
+    </ul>
+  </div>
+  <div class="cta-setcion">
+    <button class="add-btn" (click)="addNewPartner(true)"> <span class="icon_create_partner icon"></span> Create Partner</button>
+  </div>
+
+  <ag-grid-angular #myGrid
+    class="ag-theme-alpine grid-wrapper"
+    [rowData]="rowData"
+    [columnDefs]="columns"
+    [paginationPageSize]="10"
+    [pagination]="false"
+    rowSelection="multiple"
+    (gridReady)="onGridReady($event)"
+    [overlayNoRowsTemplate]="noRowsTemplate"
+    [context]="context" >
+  </ag-grid-angular>
+  
+</div>
+
+
+

@@ -1,0 +1,175 @@
+<form [formGroup]="createProgramForm" class="create-modal-form">
+
+    <div [hidden]="searchResult" #programModal class="modal-main-div">
+        <div mat-dialog-title class="dialog-close">
+            <button aria-label="close" id="cprog-close-2" name="cprog-close-2" type="button" (click)="openAlertDialog('CLOSE')" (keyup.enter)="openAlertDialog(RP_ALERTS.CLOSE)">
+                <mat-icon class="mdl-close" aria-hidden="true">close</mat-icon>
+            </button>
+        </div>
+        <div class="pro-head-name">
+            <h2 class="" aria-level="1">{{headingText}}</h2>
+        </div>
+        <div class="pro-create-name">
+            <mat-form-field appearance="fill" class="create-text" hideRequiredMarker>
+                <mat-label class="txt-lble" aria-hidden="true">Enter Program Name</mat-label>
+                <input matInput placeholder="Enter Program Name" id="cp-enter-name" name="CP-Enter-Name" minlength="3" maxlength="64" formControlName="programName" required autocomplete="off">
+                <mat-error *ngIf="createProgramForm.hasError('required', 'programName')">Program name is required.
+                </mat-error>
+                <mat-error *ngIf="createProgramForm.hasError('minlength', 'programName')">Name must be at least 3 characters long.</mat-error>
+                <mat-error *ngIf="!createProgramForm.hasError('minlength', 'programName') &&
+                    !createProgramForm.hasError('required', 'programName') &&
+                    createProgramForm.hasError('whitespace', 'programName')">
+                    Please enter valid program name.</mat-error>
+            </mat-form-field>
+            <small tabindex="0">{{createProgramForm.controls.programName?.value.length}} / 64 Characters</small>
+        </div>
+        <div class="pro-desc-sec">
+            <mat-form-field appearance="fill">
+                <mat-label>Description (Optional)</mat-label>
+                <textarea matInput formControlName="description" id="cp-txtarea-desc" name="CP-Text-Desc" maxlength="1300"></textarea>
+            </mat-form-field>
+            <small tabindex="0">{{createProgramForm.controls.description.value.length}} / 1300 Characters</small>
+        </div>
+        <div class="pro-detail-sec">
+            <h4 aria-level="2">Program Details</h4>
+        </div>
+        <div class="rp-radio-button">
+            <input type="radio" formControlName="isPublic" value="true" id="isPublic" /> <label for="isPublic">Public</label>
+        </div>
+        <div class="pro-type-sec">
+            <mat-form-field appearance="fill" hideRequiredMarker>
+                <mat-label for="cp-select-progtyp">Set Program Type</mat-label>
+                <mat-select [disabled]="isProgramStarted" placeholder="Set Program Type" id="cp-select-progtyp" aria-expanded="false" aria-controls="programType[i]" formControlName="programType" disableOptionCentering class="programType" panelClass="option-overlay-panel"
+                    role="combobox" (selectionChange)="onProgramTypeChange()">
+                    <mat-option *ngFor="let programType of programTypeList | keyvalue; let i=index" [value]="programType.key">
+                        {{programType.value}}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix tabindex="-1" aria-label="keyboard arrow down" class="arrow-down">
+                    keyboard_arrow_down</mat-icon>
+            </mat-form-field>
+            <mat-error class="dropdown-error" *ngIf="isProgramTypeError" tabindex="0" aria-label="Program type is required">Program Type is required.
+            </mat-error>
+        </div>
+        <div class="pro-type-sec" *ngIf="showNoOfBooks()">
+            <mat-form-field appearance="fill">
+                <mat-label>Number of Books</mat-label>
+                <mat-select placeholder="Number of Books" [disabled]="!engageService.title.length" formControlName="numberOfBooks" disableOptionCentering panelClass="option-overlay-panel" required>
+                    <mat-option *ngFor="let book of engageService.title; let noOfBook = index" [value]="(noOfBook+1)">
+                        {{(noOfBook+1)}}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix tabindex="-1" aria-label="keyboard arrow down" class="arrow-down">
+                    keyboard_arrow_down</mat-icon>
+                <mat-error *ngIf="createProgramForm.hasError('required', 'requiredBooks')">Number of Books is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="pro-date-sec">
+            <div class="start-end-date">
+                <mat-form-field class="date-sec" tabindex="0" role="dialog" aria-label="Set start date" appearance="fill" hideRequiredMarker>
+                    <mat-label>Set Start Date</mat-label>
+                    <input aria-hidden="true" matInput [matDatepicker]="picker_start" id="cp-strtdate" name="CP-StrtDate" [min]="minDate" [max]="maxDate" placeholder="Choose a date" formControlName="startDate" autocomplete="off" readonly (dateChange)="startDateChanges()"
+                        [required]='publish'>
+                    <mat-datepicker-toggle class="date-icon" [disabled]="isProgramStarted" matSuffix [for]="picker_start" id="start-date-cp">
+                        <mat-icon aria-haspopup="false" matDatepickerToggleIcon class="calendar_icon" role="button" aria-hidden="false" aria-label=" open calendar" (click)="startDateToggle()">
+                            <img src="/Angular-App/assets/icons-insights-days.svg" alt="calendar_icon" />
+                        </mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker_start panelClass="pro-datepicker"></mat-datepicker>
+                    <mat-error *ngIf="createProgramForm.hasError('required', 'startDate')">Start date is required.
+                    </mat-error>
+                    <mat-error *ngIf="createProgramForm.hasError('min', 'startDate')">Start date must greater than or equal to today
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="date-sec" tabindex="0" role="dialog" aria-label="Set end date" appearance="fill" hideRequiredMarker>
+                    <mat-label>Set End Date</mat-label>
+                    <input aria-hidden="true" matInput [matDatepicker]="picker_end" id="cp-end-date" name="CP-EndDate" [min]="minReadByDate" [max]="maxReadByDate" placeholder="Choose a date" formControlName="readByDate" autocomplete="off" readonly
+                        [required]='publish'>
+                    <mat-datepicker-toggle class="date-icon" matSuffix [for]="picker_end" id="end-date-cp">
+                        <mat-icon aria-haspopup="false" matDatepickerToggleIcon class="calendar_icon" role="button" aria-hidden="false" aria-label=" open calendar">
+                            <img src="/Angular-App/assets/icons-insights-days.svg" alt="calendar_icon" />
+                        </mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker_end panelClass="pro-datepicker"></mat-datepicker>
+                    <mat-error *ngIf="createProgramForm.hasError('required', 'readByDate')">End date is required.
+                    </mat-error>
+                    <mat-error *ngIf="createProgramForm.hasError('min', 'readByDate')">End date must greater than or equal to Start date
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="pro-reminder-sec">
+                <mat-form-field appearance="fill">
+                    <mat-label for="cp-setrem-sel">Set Reminders</mat-label>
+                    <mat-select placeholder="Set Reminders" role="combobox" id="cp-setrem-sel" class="pro-reminder-sel" aria-expanded="false" aria-controls="reminder[i]" formControlName="reminderFrequency" disableOptionCentering panelClass="option-overlay-panel">
+                        <mat-option *ngFor="let reminder of reminderList; let i=index" [value]="reminder">
+                            {{reminder | titlecase}}</mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix tabindex="-1" aria-label="keyboard arrow down" class="arrow-down">
+                        keyboard_arrow_down</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="pro-addtitle-sec" [ngClass]="{'add-space-btm': !modaldata.isDraft}">
+                <h4 class="mr-top0" aria-level="4">Add Titles </h4>
+                <div class="add-titlesmain">
+                    <div class="add-titles">
+                        <button type="button" aria-label="Add title" id="cp-title-btn" (click)="openSearchDialog()" name="CP-Titles-btn">
+                            <mat-icon aria-hidden="true">add</mat-icon>
+                        </button>
+                    </div>
+
+                    <div *ngIf="engageService.title && engageService.title.length>0" class="addedBooks">
+                        <axis360-title-card-carousel [usedIn]="'create'" (titleReIndex)="titleReIndex()" (deleteTitleAction)="deleteTitleAction($event)" [dragDrop]="!showNoOfBooks()" #addTitle [bookList]="engageService.title">
+                        </axis360-title-card-carousel>
+                    </div>
+                </div>
+                <ng-container *ngIf="publish && !engageService.title.length">
+                    <mat-error class="date-error" *ngIf="!engageService.title.length">At least one title is required.
+                    </mat-error>
+                </ng-container>
+
+            </div>
+        </div>
+
+        <mat-error *ngIf="isInValid()">
+            Please fill required fields.
+        </mat-error>
+
+        <div class="delete-program" *ngIf="modaldata.isDraft">
+            <button type="button" (click)="openAlertDialog(RP_ALERTS.DELETE)" aria-label="delete program dialog">
+                <mat-label>DELETE PROGRAM</mat-label>
+                <mat-icon class="mdl-close">close</mat-icon>
+            </button>
+        </div>
+
+    </div>
+    <div *ngIf="!searchResult" class="stickyBtnSec">
+        <ng-container *ngIf="isEdit">
+            <button type="button" *ngIf="isDeletable" class="cancel-btn delete-cta" (click)="openAlertDialog(RP_ALERTS.DELETE)">Delete Program</button>
+            <button type="button" *ngIf="!isDeletable" class="cancel-btn" (click)="cancelFn()">Cancel</button>
+        </ng-container>
+        <ng-container *ngIf="!isEdit">
+            <button type="button" mat-raised-button class="save-btn" (click)=submitProgram(false)>Save</button>
+        </ng-container>
+        <button type="submit" (click)=submitProgram(true) mat-raised-button class="submit-btn" [ngClass]="{'save-cta': submitProgramBtnText == 'Save'}">{{submitProgramBtnText}}</button>
+    </div>
+
+</form>
+<mat-drawer #searchTitleScreen class="example-sidenav" mode="side" id="search-title-mat-drawer">
+    <div class="mb-display" [hidden]="!searchResult">
+        <div class="mb-back-sec">
+            <button mat-icon-button id="Chlg-prog-back" name="Chalg-Prog-back" (click)="closeSearchResult()">
+                <mat-icon class="mdl-close">chevron_left</mat-icon>
+                <span class="mb-back">BACK</span>
+                <span class="mb-search-title">{{createProgramForm.controls.programName.value}}</span>
+            </button>
+        </div>
+
+        <div *ngIf="engageService.title && engageService.title.length>0 && searchResult" class="mbaddedBooks">
+            <axis360-title-card-carousel (titleReIndex)="titleReIndex()" (deleteTitleAction)="deleteTitleAction($event)" #mobileTitle [dragDrop]="!showNoOfBooks()" [usedIn]="'create-mobile'" [bookList]="engageService.title">
+            </axis360-title-card-carousel>
+        </div>
+
+    </div>
+    <axis360-search-titles-result #searchTitle [previewHeading]="headingText" [mobileScreen]="searchResult">
+    </axis360-search-titles-result>
+</mat-drawer>

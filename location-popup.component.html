@@ -1,0 +1,105 @@
+<div class="location-popup" *ngIf="!partnerService.showQRCodePopup">
+    <div class="row">
+        <h1>{{title}}</h1>
+    </div>
+    <div class="close-icon">
+        <button (click)="cancelLocation()"><img class="remove-icon" src="/Angular-App/assets/icons-core-remove.svg" alt="remove-icon" /></button>
+    </div>
+    <div class="row">
+        <div class="innerDiv">
+            <p>Location Name <sup>*</sup></p>
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="Location Name" 
+                class="form-control" required [(ngModel)]="locationName" #locationNameControl="ngModel">
+                <mat-error *ngIf="locationNameControl.invalid && locationNameControl.touched">Name is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="innerDiv">
+            <p>Address 1</p>
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="Address 1" [(ngModel)]="streetAddress1">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="innerDiv">
+            <p>Address 2</p>
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="Address 2" [(ngModel)]="streetAddress2">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="innerDiv">
+            <p>Country</p>
+            <mat-form-field class="select-box">
+                <mat-select [(value)]="selectedCountry" disableOptionCentering placeholder="Select country">
+                    <mat-option [value]="country" *ngFor="let country of countries">{{country.key}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="innerDiv col_one">
+            <p>State</p>
+            <mat-form-field class="select-box" *ngIf="selectedCountry.value==='US'">
+                <mat-select [(value)]="selectedState" disableOptionCentering placeholder="State">
+                    <mat-option [value]="state" *ngFor="let state of states">{{state.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="selectedCountry.value!=='US'" appearance="outline">
+                <input matInput placeholder="State" [(ngModel)]="stateDetails">
+            </mat-form-field>
+        </div>
+        <div class="innerDiv col_one" >
+            <p>City</p>
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="City" [(ngModel)]="city">
+            </mat-form-field>
+        </div>
+        <div class="innerDiv col_one">
+            <p>ZIP / Postal Code</p>
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="ZIP / Postal Code" [(ngModel)]="zipPostalCode">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cta-setcion">
+            <button class="add-btn m-top-0" (click)="saveLocation()" [disabled]="locationName === undefined || (locationNameControl.invalid && locationNameControl.touched)">Save</button>
+        </div>
+    </div>
+</div>
+
+<div class="qa-code-popup" *ngIf="partnerService.showQRCodePopup">
+    <div class="row">
+        <h1>Location QR Code</h1>
+    </div>
+    <div class="close-icon">
+        <button (click)="cancelLocation()"><img class="remove-icon" src="/Angular-App/assets/icons-core-remove.svg" alt="remove-icon" /></button>
+    </div>
+    <div class="row">
+        <div class="qr-code-area">
+            <div class="qr-code-bar">
+                <qrcode id="mycanvas" [qrdata]="qrCode" [width]="184" [errorCorrectionLevel]="'M'"></qrcode>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="cta-setcion">
+            <button class="add-btn non-active" (click)="downloadQRCode()"><img src="/Angular-App/assets/Download_icon.svg" alt="download_icon" />&nbsp;Download QR code</button>
+            <div class="copy-link-area">
+                <p class="copy-link-label">ePopUP Library link</p>
+                <p class="copy-link-value" #userinput>{{qrCode}}</p>
+                <img class="copy-icon" (click) = "copyLink(userinput)" src="/Angular-App/assets/Copy_icon.svg" alt="copy-icon" />
+            </div>
+            <button class="add-btn non-active" (click)="viewLocation()">View Location Details</button>
+            <button class="add-btn" (click)="cancelLocation()">CLOSE</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,441 @@
+@import "../../../../variables";
+.programDetail {
+  padding-bottom: 32px;
+  .breadcrumb-sec {
+    margin-top: 0;
+    .breadcrumb {
+      background: none;
+      list-style: none;
+      padding: 0;
+      margin-top: 0;
+      .breadcrumb-item {
+        font-size: 14px;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: $primaryGreenColor;
+        @include boldFont;
+        letter-spacing: 0.5px;
+        display: inline;
+        outline: none;
+        a {
+          text-decoration: none;
+          color: $primaryGreenColor;
+        }
+        &:last-child:not(.display-active) {
+          a {
+            color: $matLabletextColor;
+          }
+          @include regularFont;
+          cursor: default;
+        }
+        &:first-child {
+          &::before {
+            display: none;
+          }
+        }
+        &::before {
+          content: "";
+          transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+          padding: 3px;
+          margin: 0 7px;
+          color: $primaryGreenColor;
+          border: solid $primaryGreenColor;
+          border-width: 0 2px 2px 0;
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .reading-program {
+    padding-bottom: 5%;
+    border-bottom: 1px solid $matLabletextColor;
+    .reading-book-detail {
+      display: flex;
+      .book-detail-lft {
+        width: 64%;
+        margin-right: 10%;
+        .pro-sub-heading {
+          color: $secondaryBlackColor;
+          padding-top: 30px;
+          font-size: 14px;
+          padding-left: 0;
+          text-transform: uppercase;
+          margin: 0;
+          @include boldFont;
+        }
+        .pro-heading {
+          color: $secondaryBlackColor;
+          font-size: 48px;
+          margin: 0 0 16px 0;
+          @include regularFont;
+          word-break: break-word;
+          border-bottom: 0;
+        }
+        .pro-desc {
+          margin-top: 0;
+          color: $secondaryBlackColor;
+          font-size: 18px;
+          @include regularFont;
+          word-break: break-word;
+          margin-bottom: 32px;
+          white-space: pre-wrap;
+        }
+      }
+      .book-detail-rgt {
+        width: 36%;
+        .created-view {
+          padding-top: 30px;
+          h4 {
+            margin: 0px;
+            @include boldFont;
+            font-size: 14px;
+            color: $secondaryBlackColor;
+          }
+          p {
+            margin: 0px;
+            padding-top: 6px;
+            @include regularFont;
+            font-size: 18px;
+            color: $primaryBlackColor;
+          }
+        }
+        .pro-date-sec {
+          .display-date {
+            display: flex;
+            width: 100%;
+            padding-top: 24px;
+            .start-date {
+              min-width: 140px;
+              width: 33%;
+              h4 {
+                text-align: left;
+                font-size: 14px;
+                margin: 0 0 5px 0;
+                @include boldFont;
+                color: $secondaryBlackColor;
+              }
+              p {
+                text-align: left;
+                font-size: 18px;
+                @include regularFont;
+                line-height: 1.44;
+                color: $secondaryBlackColor;
+                margin-top: 0;
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    .pro-option-sec {
+      display: flex;
+      .pro-option {
+        a {
+          text-decoration: none;
+          font-size: 14px;
+          padding: 0;
+          margin: 8px 20px 0 0;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          @include boldFont;
+          color: $primaryGreenColor;
+          img {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+  .reading-list {
+    padding-top: 16px;
+    h2 {
+      font-size: 32px;
+      line-height: 1.5;
+      color: $secondaryBlackColor;
+      @include regularFont;
+    }
+    .reading-main-sec {
+      .reading-list-mat-card {
+        padding: 0;
+        box-sizing: border-box;
+        margin-bottom: 40px;
+        border: 1px solid $border-light;
+        .reading-list-img {
+          img {
+            width: 100%;
+          }
+          .book-availability {
+            position: relative;
+            bottom: 35px;
+            button {
+              background: $primaryGreenColor;
+              border: none;
+              width: 100%;
+              height: 30px;
+              opacity: 0.9;
+              color: $searchBrdColor;
+              font-size: 14px;
+            }
+          }
+        }
+        .reading-details {
+          padding: 10px;
+          .reading-book-name {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 16px;
+          }
+          .book-action {
+            display: flex;
+            padding-top: 10px;
+            .mat-icon {
+              color: $primaryGreenColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .programDetail {
+    .reading-main-sec {
+      .reading-list-mat-card {
+        width: calc(17.4% - 65px);
+        margin-right: 32.5px;
+        margin-left: 32.5px;
+        &:nth-child(6n-5) {
+          margin-left: 0;
+        }
+        &:nth-child(6n-6) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+  .programDetail {
+    .reading-program {
+      .reading-book-detail {
+        .book-detail-lft {
+          width: 60%;
+          margin-right: 6%;
+          .pro-sub-heading {
+            font-size: 12px;
+          }
+          .pro-heading {
+            font-size: 44px;
+          }
+          .pro-desc {
+            font-size: 16px;
+          }
+        }
+        .book-detail-rgt {
+          width: 40%;
+          .created-view {
+            padding-top: 30px;
+            h4 {
+              font-size: 12px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+          .pro-date-sec {
+            .display-date {
+              .start-date {
+                h4 {
+                  font-size: 12px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .reading-list {
+      h2 {
+        font-size: 28px;
+      }
+      .reading-main-sec {
+        .reading-list-mat-card {
+          width: calc(27.5% - 100px);
+          margin-right: 50px;
+          margin-left: 50px;
+          &:nth-child(4n-3) {
+            margin-left: 0;
+          }
+          &:nth-child(4n-4) {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 701px) and (max-width: 1023px) {
+  .programDetail {
+    .reading-program {
+      .reading-book-detail {
+        flex-direction: column;
+        .book-detail-lft {
+          width: 100%;
+          margin-right: 0;
+          .pro-sub-heading {
+            font-size: 12px;
+          }
+          .pro-heading {
+            font-size: 44px;
+          }
+          .pro-desc {
+            font-size: 16px;
+            margin-bottom: 0;
+          }
+        }
+        .book-detail-rgt {
+          width: 100%;
+          .created-view {
+            padding-top: 30px;
+            h4 {
+              font-size: 12px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+          .pro-date-sec {
+            display: flex;
+            padding-bottom: 24px;
+            .display-date {
+              .start-date {
+                padding-left: 0;
+                min-width: 100px;
+                h4 {
+                  font-size: 12px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .reading-list {
+      h2 {
+        font-size: 28px;
+      }
+      .reading-main-sec {
+        .reading-list-mat-card {
+          width: calc(25.5% - 19px);
+          margin-right: 9.5px;
+          margin-left: 9.5px;
+          &:nth-child(4n-3) {
+            margin-left: 0;
+          }
+          &:nth-child(4n-4) {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 701px) and (max-width: 767px) {
+  .programDetail{
+    .reading-program {
+      .reading-book-detail {
+        .book-detail-rgt {
+          .pro-date-sec {
+            .display-date {
+              .start-date {
+                padding-right: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 700px) {
+  .programDetail {
+    .reading-program {
+      .reading-book-detail {
+        flex-direction: column;
+        .book-detail-lft {
+          width: 100%;
+          margin-right: 0;
+          .pro-sub-heading {
+            font-size: 10px;
+          }
+          .pro-heading {
+            font-size: 40px;
+          }
+          .pro-desc {
+            font-size: 16px;
+            margin-bottom: 0;
+          }
+        }
+        .book-detail-rgt {
+          width: 100%;
+          .pro-date-sec {
+            flex-direction: column;
+            padding-bottom: 24px;
+            .display-date {
+              .start-date {
+                padding-left: 0;
+                min-width: 100px;
+                h4 {
+                  font-size: 10px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .pro-option-sec {
+        flex-direction: column;
+        .pro-option {
+          margin-bottom: 20px;
+        }
+      }
+    }
+    .reading-list {
+      h2 {
+        font-size: 26px;
+      }
+      .reading-main-sec {
+        .reading-list-mat-card {
+          width: calc(50% - 12px);
+          margin-right: 6px;
+          margin-left: 6px;
+          &:nth-child(2n-1) {
+            margin-left: 0;
+          }
+          &:nth-child(2n-2) {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+#loader-div {
+  min-height: 90vh;
+}

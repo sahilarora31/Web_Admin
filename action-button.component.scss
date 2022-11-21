@@ -1,0 +1,12 @@
+.action-btn-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 6px;
+    .action-btn-item{
+        width: 20px;
+        display: flex;
+        margin: 5px;
+        cursor: pointer;
+    }
+}

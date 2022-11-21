@@ -1,0 +1,168 @@
+@import "../../../../../../variables.scss";
+.cta-setcion{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    button{
+        text-transform: uppercase;
+        margin-top: 16px;
+        &:first-child{
+            margin-top: 0px;
+        }
+        &.add-btn{
+            width: 100%;
+            background-color: #012d5e !important;
+            color: #fff;
+            padding: 9px 15px;
+            border-radius: 10px;
+            border-color: #012d5e !important;
+            align-items: center;
+            border-style: dashed;
+            font-size: 16px;
+            cursor: pointer;
+            @include myriadPro;
+            font-weight: normal;
+            text-align: center;
+            border-radius: 10px;
+            .ui-button-text{
+                display: flex;
+                @include myriadPro;
+                .icon{
+                    display: flex;
+                    padding: 0 15px;
+                }
+            }
+            &.non-active{
+                background-color: #6f6f6f !important;
+                border-radius: 10px;
+                border-color: #6f6f6f !important;
+                align-items: center;
+                border-style: dashed;
+            }
+            &.m-top-0{
+                margin-top: 0px;
+            }
+        }
+    }
+    .copy-link-area{
+        display: flex;
+        flex-direction: column;
+        background-color: #596940;
+        margin-top: 16px;
+        border-radius: 10px;
+        padding: 14px 24px 16px 24px;
+        position: relative;
+        p{
+            margin: 0;
+        }
+        .copy-link-label{
+            @include myriadPro;
+            font-size: 16px;
+            color: #fff;
+            padding-bottom: 8px;
+        }
+        .copy-link-value{
+            background-color: #fff;
+            padding: 8px 14px;
+            border-radius: 10px; 
+            @include myriadPro;
+            font-size: 16px;
+            color: #3a87ab;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .copy-icon{
+            position: absolute;
+            bottom: 24px;
+            right: 30px;
+            cursor: pointer;
+        }
+    }
+}
+.location-popup, .qa-code-popup{
+    display: flex;
+    position: relative;
+    padding: 16px 32px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+    .close-icon{
+        position: absolute;
+        right: 32px;
+        top: 16px;
+        button{
+            font-size: 24px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            .remove-icon{
+                width: 18px;
+                height: 18px;
+                margin-top: 10px;
+                &:hover{
+                    border: 1px solid #333;
+                }
+            }
+            
+        }
+    }
+    .row{
+        background-color: #f5f5f5;
+        padding: 0px;
+        display: flex;
+        h1{
+            margin: 0;
+            padding-bottom: 16px;
+            font-size: 28px;
+            height: 28px;
+            color: #596940;
+            @include myriadPro;
+            border: 0px;
+            font-weight: normal;
+        }
+        .innerDiv{
+            p{
+                margin: 0px;
+                padding-bottom: 8px;
+                @include myriadPro;
+                font-size: 16px;
+                height: 16px;
+            }
+            display: inline-block;
+            width: 100%;
+            .mat-form-field{
+                width: 100%;
+            }
+            &.col_one{
+                width: 33.33%;
+                &:not(:last-child) {
+                    .mat-form-field {
+                        width: calc(100% - 16px);
+                    }
+                }
+            }
+        }
+        .qr-code-area{
+            height: 170px;
+            background-color: #fff;
+            padding: 0px 24px 16px 24px;
+            border-radius: 10px;
+            box-shadow: 0 -3px 5px 0 rgba(213, 213, 213, 0.5);
+            width: 100%;
+            margin-bottom: 16px;
+            p{
+                margin: 0px 0px 5px 0px;
+                @include myriadPro;
+                font-size: 16px;
+                color: #373737;
+            }
+            .qr-code-bar{
+                margin: 0px auto;
+                text-align: center;
+            }
+           
+        }
+    }
+}

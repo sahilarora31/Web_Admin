@@ -1,0 +1,13 @@
+<div class="action-btn-section">
+    <div class="action-btn-item">
+        <div class="icon_grid_action_edit" (click)="invokeGridAction('EDIT')"
+            [title]="isLocationGrid() ? 'Edit Location' : 'Edit Partner'"></div>
+    </div>
+    <div class="action-btn-item">
+        <div class="icon_delete_partner" (click)="invokeGridAction('DELETE')"
+        [title]="isLocationGrid() ? 'Remove Location' : 'Remove Partner'"></div>
+    </div>
+    <div *ngIf="isLocationGrid()" class="action-btn-item">
+        <div class="icon_grid_action_box" (click)="invokeGridAction('DOWNLOAD')" title="Download QR Code"></div>
+    </div>
+</div>

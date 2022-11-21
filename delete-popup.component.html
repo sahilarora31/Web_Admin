@@ -1,0 +1,15 @@
+<div class="delete-dialog">
+    <div mat-dialog-content class="delete-dialog-heading">
+        <h4>{{header}}</h4>
+        <p>{{body_content1}}</p>
+        <p>{{body_content2}}</p>
+        <button mat-button class="close-icon" [mat-dialog-close]="true">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div mat-dialog-actions class="delete-dialog-btns">
+        <button mat-button (click)="cancelClick()" (keyup.enter)="cancelClick()" cdkFocusInitial class="delete-dialog-cancel-btn">{{cancelButtonText}}</button>
+        <button mat-button (click)="submitClick()" (keyup.enter)="submitClick()" cdkFocusInitial class="delete-dialog-submit-btn">{{submitButtonText}}</button>
+    </div>
+</div>
